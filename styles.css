@@ -1,0 +1,125 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+#scene {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    background: linear-gradient(180deg, #8dd0ee 0%);
+}
+
+/* Estilos das nuvens */
+.cloud {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.55);
+    border-radius: 50px;
+    filter: blur(6px);
+}
+
+.cloud1 {
+    width: 160px;
+    height: 50px;
+    top: 40px;
+    left: 8%;
+}
+
+.cloud2 {
+    width: 110px;
+    height: 38px;
+    top: 55px;
+    left: 16%;
+}
+
+.cloud3 {
+    width: 200px;
+    height: 55px;
+    top: 25px;
+    left: 45%;
+}
+
+.cloud4 {
+    width: 130px;
+    height: 42px;
+    top: 60px;
+    left: 60%;
+}
+
+.cloud5 {
+    width: 90px;
+    height: 32px;
+    top: 30px;
+    left: 80%;
+}
+
+/* Chão em declive - começa na metade da tela na esquerda e desce até o fim na direita */
+.ground {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    background: linear-gradient(135deg, #e8f4f8 0%, #d4eef7 40%, #c8e8f4 100%);
+    clip-path: polygon(0% 0%, 100% 60%, 100% 100%, 0% 100%);
+    box-shadow: inset 0 8px 15px rgba(0, 0, 0, 0.05);
+}
+
+/* Camada de neve no chão */
+.ground::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 20% 0%, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 80%);
+    pointer-events: none;
+}
+
+/* Detalhes de neve acumulada */
+.ground::after {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: 0;
+    width: 100%;
+    height: 10px;
+    background: radial-gradient(ellipse at 50% 0%, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0) 70%);
+    pointer-events: none;
+}
+
+.snowflake {
+    position: absolute;
+    top: -10px;
+    color: white;
+    pointer-events: none;
+    user-select: none;
+    animation: cair linear infinite;
+    text-shadow: 0 0 4px rgba(180, 230, 255, 0.8);
+}
+
+@keyframes cair {
+    0% {
+        transform: translateY(0) translateX(0) rotate(0deg);
+        opacity: 0;
+    }
+    5% {
+        opacity: 0.9;
+    }
+    95% {
+        opacity: 0.7;
+    }
+    100% {
+        transform: translateY(110vh) translateX(var(--desvio)) rotate(360deg);
+        opacity: 0;
+    }
+}
