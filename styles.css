@@ -18,7 +18,17 @@ body {
     background: linear-gradient(180deg, #8dd0ee 0%);
 }
 
-/* Estilos das nuvens */
+/* Cenário em movimento */
+#moving-scenery {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200%;
+    height: 100%;
+    animation: scenery-slide 12s linear infinite;
+}
+
+/* Nuvens */
 .cloud {
     position: absolute;
     background: rgba(255, 255, 255, 0.55);
@@ -26,54 +36,51 @@ body {
     filter: blur(6px);
 }
 
-.cloud1 {
-    width: 160px;
-    height: 50px;
-    top: 40px;
-    left: 8%;
-}
+/* Primeira metade das nuvens */
+.cloud1 { width: 160px; height: 50px; top: 40px; left: 5%; }
+.cloud2 { width: 110px; height: 38px; top: 55px; left: 15%; }
+.cloud3 { width: 200px; height: 55px; top: 25px; left: 35%; }
+.cloud4 { width: 130px; height: 42px; top: 60px; left: 55%; }
+.cloud5 { width: 90px;  height: 32px; top: 30px; left: 75%; }
 
-.cloud2 {
-    width: 110px;
-    height: 38px;
-    top: 55px;
-    left: 16%;
-}
+/* Segunda metade das nuvens (para repetição contínua) */
+.cloud6 { width: 140px; height: 48px; top: 45px; left: 105%; }
+.cloud7 { width: 120px; height: 40px; top: 35px; left: 125%; }
+.cloud8 { width: 180px; height: 52px; top: 50px; left: 145%; }
+.cloud9 { width: 100px; height: 35px; top: 30px; left: 165%; }
+.cloud10 { width: 150px; height: 45px; top: 55px; left: 185%; }
 
-.cloud3 {
-    width: 200px;
-    height: 55px;
-    top: 25px;
-    left: 45%;
-}
-
-.cloud4 {
-    width: 130px;
-    height: 42px;
-    top: 60px;
-    left: 60%;
-}
-
-.cloud5 {
-    width: 90px;
-    height: 32px;
-    top: 30px;
-    left: 80%;
-}
-
-/* Chão em declive - começa na metade da tela na esquerda e desce até o fim na direita */
+/* Chão em declive - ainda menor */
 .ground {
     position: absolute;
     bottom: 0;
     left: 0;
-    width: 100%;
-    height: 50%;
+    width: 200%;
+    height: 20%;  /* Reduzido para 20% */
     background: linear-gradient(135deg, #e8f4f8 0%, #d4eef7 40%, #c8e8f4 100%);
-    clip-path: polygon(0% 0%, 100% 60%, 100% 100%, 0% 100%);
-    box-shadow: inset 0 8px 15px rgba(0, 0, 0, 0.05);
+    box-shadow: inset 0 8px 15px rgba(0,0,0,0.05);
 }
 
-/* Camada de neve no chão */
+/* Primeira metade do chão */
+.ground-part1 {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 50%;
+    height: 100%;
+    clip-path: polygon(0% 0%, 100% 30%, 100% 100%, 0% 100%);  /* Ajustado para 30% */
+}
+
+/* Segunda metade do chão (continuação perfeita) */
+.ground-part2 {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 50%;
+    height: 100%;
+    clip-path: polygon(0% 30%, 100% 0%, 100% 100%, 0% 100%);  /* Ajustado para 30% */
+}
+
 .ground::before {
     content: '';
     position: absolute;
@@ -85,7 +92,6 @@ body {
     pointer-events: none;
 }
 
-/* Detalhes de neve acumulada */
 .ground::after {
     content: '';
     position: absolute;
@@ -95,6 +101,27 @@ body {
     height: 10px;
     background: radial-gradient(ellipse at 50% 0%, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0) 70%);
     pointer-events: none;
+}
+
+/* Animação contínua do cenário */
+@keyframes scenery-slide {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+/* Flocos de neve */
+#snow-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 15;
 }
 
 .snowflake {
@@ -108,18 +135,25 @@ body {
 }
 
 @keyframes cair {
-    0% {
-        transform: translateY(0) translateX(0) rotate(0deg);
-        opacity: 0;
-    }
-    5% {
-        opacity: 0.9;
-    }
-    95% {
-        opacity: 0.7;
-    }
-    100% {
-        transform: translateY(110vh) translateX(var(--desvio)) rotate(360deg);
-        opacity: 0;
-    }
+    0%   { transform: translateY(0) translateX(0) rotate(0deg); opacity: 0; }
+    5%   { opacity: 0.9; }
+    95%  { opacity: 0.7; }
+    100% { transform: translateY(110vh) translateX(var(--desvio)) rotate(360deg); opacity: 0; }
+}
+
+/* Pinguim fixo na tela - versão única e corrigida */
+#tux-wrapper {
+    position: absolute;
+    z-index: 20;
+    width: 160px;
+    bottom: 8%;  /* Ajustado para o chão de 20% */
+    left: 20%;
+    filter: drop-shadow(2px 4px 6px rgba(0,0,60,0.2));
+    transform: rotate(-17deg);
+}
+
+#tux {
+    width: 100%;
+    height: auto;
+    display: block;
 }
