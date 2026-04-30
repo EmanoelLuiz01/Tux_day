@@ -157,3 +157,20 @@ body {
     height: auto;
     display: block;
 }
+
+#tux {
+    position: relative;
+    top: 0;
+    transition: top 0.25s;
+}
+
+.animar-pulo {
+    animation: pulo 0.5s linear;
+}
+
+@keyframes pulo {
+    0% { top: 0; }
+    30% { top: -100px; } /* Altura do pulo */
+    70% { top: -100px; } /* Tempo no ar */
+    100% { top: 0; }
+}

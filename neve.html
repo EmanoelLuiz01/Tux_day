@@ -44,6 +44,31 @@
             `;
             snowContainer.appendChild(floco);
         }
+
+const tux = document.getElementById('tux');
+
+// 2. Cria a função de pular
+function pular(event) {
+    // Verifica se a tecla pressionada é "Espaço" (code 32 ou ' ')
+    if (event.code === 'Space' || event.key === ' ') {
+        
+        // Evita que a página role para baixo ao apertar espaço
+        event.preventDefault(); 
+        
+        if (!tux.classList.contains('animar-pulo')) {
+            tux.classList.add('animar-pulo'); 
+            
+            // Remove a classe após a animação (ex: 500ms)
+            setTimeout(() => {
+                tux.classList.remove('animar-pulo');
+            }, 500);
+        }
+    }
+}
+
+// 3. Adiciona o ouvinte de evento
+document.addEventListener('keydown', pular);
+
     </script>
 </body>
 </html>
