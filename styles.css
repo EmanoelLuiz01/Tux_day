@@ -15,105 +15,103 @@ body {
     width: 100%;
     height: 100vh;
     overflow: hidden;
-    background: linear-gradient(180deg, #8dd0ee 0%);
+    background: linear-gradient(180deg, #7ec8e0 0%, #7ec8e0 65%, #e8f0f5 65%, #f5f8fa 100%);
 }
 
-/* Cenário em movimento */
+
+/* ── MONTANHAS DISTANTES (mais claras, efeito neblina) ── */
+#mountains-far {
+    position: absolute;
+    bottom: 28%;
+    left: 0;
+    width: 200%;
+    height: 20%;
+    display: flex;
+    z-index: 2;
+    animation: scenery-slide 30s linear infinite;
+}
+
+.mfar-copy {
+    flex: 0 0 50%;
+    height: 100%;
+}
+
+.mfar-copy svg {
+    width: 100%;
+    height: 100%;
+}
+
+/* ── MONTANHAS PRÓXIMAS (mais escuras, mais contraste) ── */
+#mountains-near {
+    position: absolute;
+    bottom: 28%;
+    left: 0;
+    width: 200%;
+    height: 26%;
+    display: flex;
+    z-index: 3;
+    animation: scenery-slide 18s linear infinite;
+}
+
+.mnear-copy {
+    flex: 0 0 50%;
+    height: 100%;
+}
+
+.mnear-copy svg {
+    width: 100%;
+    height: 100%;
+}
+
+/* ── CENÁRIO PRINCIPAL: nuvens + chão (velocidade normal: 12s) ── */
 #moving-scenery {
     position: absolute;
     top: 0;
     left: 0;
     width: 200%;
     height: 100%;
+    display: flex;
+    z-index: 4;
     animation: scenery-slide 12s linear infinite;
+}
+
+.scenery-copy {
+    position: relative;
+    flex: 0 0 50%;
+    height: 100%;
 }
 
 /* Nuvens */
 .cloud {
     position: absolute;
-    background: rgba(255, 255, 255, 0.55);
+    background: rgba(255, 255, 255, 0.7);
     border-radius: 50px;
     filter: blur(6px);
 }
 
-/* Primeira metade das nuvens */
 .cloud1 { width: 160px; height: 50px; top: 40px; left: 5%; }
 .cloud2 { width: 110px; height: 38px; top: 55px; left: 15%; }
 .cloud3 { width: 200px; height: 55px; top: 25px; left: 35%; }
 .cloud4 { width: 130px; height: 42px; top: 60px; left: 55%; }
 .cloud5 { width: 90px;  height: 32px; top: 30px; left: 75%; }
 
-/* Segunda metade das nuvens (para repetição contínua) */
-.cloud6 { width: 140px; height: 48px; top: 45px; left: 105%; }
-.cloud7 { width: 120px; height: 40px; top: 35px; left: 125%; }
-.cloud8 { width: 180px; height: 52px; top: 50px; left: 145%; }
-.cloud9 { width: 100px; height: 35px; top: 30px; left: 165%; }
-.cloud10 { width: 150px; height: 45px; top: 55px; left: 185%; }
-
-/* Chão em declive - ainda menor */
+/* Chão de neve (bem claro, quase branco com leve tom azulado) */
 .ground {
     position: absolute;
     bottom: 0;
     left: 0;
-    width: 200%;
-    height: 20%;  /* Reduzido para 20% */
-    background: linear-gradient(135deg, #e8f4f8 0%, #d4eef7 40%, #c8e8f4 100%);
-    box-shadow: inset 0 8px 15px rgba(0,0,0,0.05);
-}
-
-/* Primeira metade do chão */
-.ground-part1 {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 50%;
-    height: 100%;
-    clip-path: polygon(0% 0%, 100% 30%, 100% 100%, 0% 100%);  /* Ajustado para 30% */
-}
-
-/* Segunda metade do chão (continuação perfeita) */
-.ground-part2 {
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    width: 50%;
-    height: 100%;
-    clip-path: polygon(0% 30%, 100% 0%, 100% 100%, 0% 100%);  /* Ajustado para 30% */
-}
-
-.ground::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
     width: 100%;
-    height: 100%;
-    background: radial-gradient(circle at 20% 0%, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 80%);
-    pointer-events: none;
+    height: 32%;
+    background: linear-gradient(180deg, #f0f4f8 0%, #e8edf2 100%);
+    border-top: 2px solid rgba(255,255,255,0.8);
 }
-
-.ground::after {
-    content: '';
-    position: absolute;
-    top: -5px;
-    left: 0;
-    width: 100%;
-    height: 10px;
-    background: radial-gradient(ellipse at 50% 0%, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0) 70%);
-    pointer-events: none;
-}
-
-/* Animação contínua do cenário */
+/* ── ANIMAÇÃO COMPARTILHADA ── */
 @keyframes scenery-slide {
-    0% {
-        transform: translateX(0);
-    }
-    100% {
-        transform: translateX(-50%);
-    }
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
 }
 
-/* Flocos de neve */
+/* ── FLOCOS DE NEVE ── */
 #snow-container {
     position: absolute;
     top: 0;
@@ -141,12 +139,12 @@ body {
     100% { transform: translateY(110vh) translateX(var(--desvio)) rotate(360deg); opacity: 0; }
 }
 
-/* Pinguim fixo na tela - versão única e corrigida */
+/* ── PINGUIM ── */
 #tux-wrapper {
     position: absolute;
     z-index: 20;
     width: 160px;
-    bottom: 8%;  /* Ajustado para o chão de 20% */
+    bottom: 15%;
     left: 20%;
     filter: drop-shadow(2px 4px 6px rgba(0,0,60,0.2));
     transform: rotate(-17deg);
@@ -156,9 +154,6 @@ body {
     width: 100%;
     height: auto;
     display: block;
-}
-
-#tux {
     position: relative;
     top: 0;
     transition: top 0.25s;
@@ -169,8 +164,8 @@ body {
 }
 
 @keyframes pulo {
-    0% { top: 0; }
-    30% { top: -100px; } /* Altura do pulo */
-    70% { top: -100px; } /* Tempo no ar */
+    0%   { top: 0; }
+    30%  { top: -100px; }
+    70%  { top: -100px; }
     100% { top: 0; }
 }
